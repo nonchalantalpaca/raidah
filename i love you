@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Letter From My Heart</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Nanum+Myeongjo:wght@400;700&family=Quicksand:wght@300;500&display=swap');
+
+        :root {
+            --ruby-ink: #b13138;
+            --warm-paper: #fdfaf7;
+            --vintage-gold: #c5a059;
+            --soft-shadow: rgba(177, 49, 56, 0.15);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #fffaf0; /* Cream background */
+            /* Subtle texture overlay */
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+            font-family: 'Nanum Myeongjo', serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Better for long letters */
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Ambient floating elements */
+        .heart {
+            position: fixed;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.6;
+            animation: drift 12s infinite ease-in-out;
+        }
+
+        @keyframes drift {
+            0% { transform: translateY(110vh) rotate(0deg); }
+            50% { transform: translateX(20px) rotate(20deg); }
+            100% { transform: translateY(-10vh) rotate(-20deg); }
+        }
+
+        /* Opening Screen */
+        #intro {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--warm-paper);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: 1.2s cubic-bezier(0.7, 0, 0.3, 1);
+        }
+
+        .envelope-button {
+            background: none;
+            border: 1px solid var(--ruby-ink);
+            padding: 40px 60px;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .envelope-button:hover {
+            background: #fff5f5;
+            box-shadow: 0 0 20px var(--soft-shadow);
+        }
+
+        /* The Letter Paper */
+        .letter-wrap {
+            width: 90%;
+            max-width: 700px;
+            margin: 100px 20px;
+            background: var(--warm-paper);
+            padding: 80px 60px;
+            box-shadow: 15px 15px 0px var(--soft-shadow);
+            border: 1px solid #eee;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Vintage Postmark Decor */
+        .postmark {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            width: 100px;
+            height: 100px;
+            border: 2px dashed var(--ruby-ink);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: rotate(15deg);
+            opacity: 0.3;
+            color: var(--ruby-ink);
+            font-size: 0.8rem;
+            text-align: center;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        /* --- WAX SEAL SECTION --- */
+        .wax-seal-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .wax-seal {
+            width: 100px;
+            height: 100px;
+            background: var(--ruby-ink);
+            /* Creates an organic, melted wax shape */
+            border-radius: 40% 60% 50% 50% / 50% 50% 60% 40%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 50px;
+            /* Adds depth so it looks stamped */
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.3), 0 4px 10px rgba(0,0,0,0.2);
+            border: 2px solid #96282e;
+            transform: rotate(-5deg);
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--ruby-ink);
+            font-size: 2.8rem;
+            margin-top: 0;
+        }
+
+        .letter-body {
+            color: #3d3d3d;
+            line-height: 2.2;
+            font-size: 1.15rem;
+            /* Using normal white-space so our p tags control the flow */
+            white-space: normal; 
+            margin-bottom: 50px;
+            text-align: justify; /* Makes the edges look clean like a book */
+        }
+        
+        .letter-body p {
+            margin-bottom: 25px; /* Adds space between paragraphs */
+        }
+
+        .sig-line {
+            border-top: 1px solid #eee;
+            padding-top: 30px;
+            text-align: right;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: var(--ruby-ink);
+        }
+
+        .ruby-gem {
+            color: var(--ruby-ink);
+            display: block;
+            text-align: center;
+            margin-top: 40px;
+            font-size: 1.5rem;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 600px) {
+            .letter-wrap { padding: 40px 25px; }
+            h1 { font-size: 2rem; }
+            .wax-seal { width: 80px; height: 80px; font-size: 40px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="intro" onclick="this.style.transform='translateY(-100%)'">
+        <div class="envelope-button">
+            <p style="font-family: 'Quicksand'; letter-spacing: 4px; color: #999;">I love you</p>
+            <h2 style="font-family: 'Dancing Script'; color: var(--ruby-ink); font-size: 2rem;">For my beloved wife</h2>
+            <p style="font-size: 0.8rem; color: var(--vintage-gold);">[ Click to Open ]</p>
+        </div>
+    </div>
+
+    <script>
+        // Soft heart spawner
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            const icons = ['♥', '❤', '❦', '❀'];
+            heart.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.color = Math.random() > 0.5 ? '#b13138' : '#e5a5a9';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            heart.style.animationDuration = Math.random() * 5 + 8 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 12000);
+        }
+        setInterval(createHeart, 600);
+    </script>
+
+    <div class="letter-wrap">
+        <div class="postmark">HAPPY BIRTHDAYYY<br>LOVE<br></div>
+
+        <div class="wax-seal-container">
+            <div class="wax-seal">
+                ❤
+            </div>
+        </div>
+        
+        <h1>To my precious baby,</h1>
+
+        <div class="letter-body">
+            <p>Hello baby, it is January 25 right now, and your birthday has been on my mind for ages. To be honest, I’m nervous as hell because I’ve never made a gift with a letter, let alone write or type one to the love of my life. Anyways, I just want to say that I love you, Raidah. Everything you did for me, to me, and showed me, I loved it all. You showed me everything I needed in this life from just your presence. You helped me become the man I am, not the kid who felt trapped and always played games with no future planned ahead.</p>
+
+            <p>You always had strong love for painting, though I never found the hype, I found it oddly unique. You were a proud person, shining in class every time, even had me staring at some point in class. You were bright, filled with love and perfection.</p>
+
+            <p>Talking to you felt like harmony, from the first day in that exam hall, I just felt a connection, though we never spoke, we interlinked immediately just slightly after 2, 3 months. You always matched my energy, my freak, my thoughts, my love. At last, i found someone that didn't force me to change myself for the sake of speaking. I love you Raidah.</p>
+
+            <p>I loved talking to you, to such a point where seeing anything negative associated with you overwhelmed me. I can’t even explain how safe, warm, and assured I felt whenever I spoke with you, mind you, this was before we loved each other. I remember when you were regularly pissed off by others, and seeing you in such a state put me in unease. The first time, if I can recall, you were mad at your cousin because she wanted a picture, and you felt you were undressed and “ugly”, which is a lie.</p>
+
+            <p>For the amount of good you’ve done in my life, I will never have you sad or upset alone. For you to be able to bring me up from the dead, make me feel loved again, and shine my childish self without reconsidering my thoughts, I felt the true home I always envied. I love you, Raidah, my life has never been at such a peak before, and of course, you would say there’s more to come.</p>
+
+            <p>Sometimes I wonder, what good have I done to deserve you? I’ve been dug in sins, laziness, and entirely warped out of reality to even realize. Other times I wonder that you were simply in my life to save me from this cursed world and its doing. You picked me up from a hole dug so deep, and carried me all the way out to succeed.</p>
+
+            <p>You brought me back up with Deen, a future goal, and a healthy man in such short of 5 months. You have built me into someone I’d never thought I’d be, a person that you built solely from your warm love. I love you, Raidah. You managed to gain my heart’s trust and showed genuine care in such little time. After years of existing with no reason of living except grades, you came and changed this engraved idea in my head so easily.</p>
+
+            <p>You made me realize that life wasn’t so bad, it never had to be so feared, never so hated, never so disliked. My love, you proved my little self that life had meaning. Though you were facing your issues too, you never failed to comfort me. At times where I felt like shit, you always cared.</p>
+
+            <p>I’m so glad I became your friend, let alone your husband. I would have never survived Egypt alone without my precious baby supporting me the entire way. At some point, I gave up. I accepted fate and realized I’m leaving Qatar and the people I love. One thing I didn’t realize was that I had you.</p>
+
+            <p>From the first day, I was so happy explaining to you my new friend, Eyad. Every day passed, and I felt like Egypt wasn’t so bad anymore. I felt like this is where I needed to be. My new friends, my new teachers, everything just aligned.</p>
+
+            <p>You were with me through it all and never left me, not even after expressing, exposing, and telling you everything about me. I was filled with flaws and mistakes, yet you never judged, you never hated, you never disliked anything about me. I’ve always been insecure about them, knowing that even my own brother bullies me because of them, except you.</p>
+
+            <p>I love you when you’re mad, freaky, sad, happy, whatever mood you are currently in, I always love you. I know you fear that your words might hurt me and deal good damage, but listen to me, Raidah, I love you. If you stabbed me with a knife, I would still love and adore you as ever. There is not one single action that will make me rethink my statement except cheating, but we both know you’re a Ferrari fan.</p>
+
+            <p>I love you, Raidah, I promise you I’ll be with you in every step, even through Guilbert. I love you, baby. I want to show you the love you have shown me, ever since you helped me pray on July 1, you proved that I had someone to cry to, someone I could let my guard down and speak so freely, someone I could cherish without consequence. You are this person, baby.</p>
+
+            <p>The person who was a random classmate in grade 8, and a friend in grade 10, proved to be my future wife. I love you, and every moment we had, including our calls, your beautiful fit checks, and the stories we shared. I loved hearing you laugh in our calls, hearing your laughter brought tranquility into my heart. Being able to speak to you was the best event I’ve had in life.</p>
+
+            <p>Though we didn’t talk for a while, my love for you feels as if we’ve known each other for decades. I love you, Raidah, especially when you asked me questions and you became impressed with my answers. At this time, I felt the little Yousef inside me cheer up, it made me so happy being questioned. The feeling was unexplainable, but I felt loved.</p>
+
+            <p>You’ve revived my soul, Raidah. After years of living in hell and constant shouting and beating, I felt the warmth from you, as if you were hugging me through the screen. Constant heart burns, blushing, and genuine smiling, three feelings I never experienced until now.</p>
+
+            <p>I love you, Raidah. When you sent me the letter on my birthday, I enjoyed every word and every meaning you uttered. To be written a letter for the first time, I felt so assured knowing it was the first day of school. My heart shook, my brain cried, my eyes melted, this feeling, I felt it. It was the feeling of love. Ever since then, I knew I loved you.</p>
+
+            <p>Though it seemed rushing, I couldn’t handle the fact that someone so beautiful cares about me and spent their time doing so much for someone like me. I fell for the most perfect woman this earth has seen. My love.</p>
+
+            <p>We still hold so many memories to be discovered. The future is unpredictable. I love you, Raidah, I’ll live every single moment with you, no matter the situation or time. I wonder what our future holds, when we can hold each other’s hands and live ever so peacefully. I’m very sorry the letter is all bundled up and scattered, hope you don’t mind. ❤️</p>
+        </div>
+
+        <div class="sig-line">
+            Yours forever,<br>
+            Yousef
+        </div>
+
+        <span class="ruby-gem">♦</span>
+    </div>
+
+</body>
+</html>
