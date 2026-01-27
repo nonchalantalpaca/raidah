@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thinking of You</title>
+    <style>
+        body {
+            margin: 0;
+            background: #0f0b11; /* Deep, warm midnight purple */
+            color: #fff;
+            font-family: 'Georgia', serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Floating particles */
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        /* The Heart */
+        .main-heart {
+            font-size: 80px;
+            cursor: pointer;
+            filter: drop-shadow(0 0 20px rgba(255, 50, 100, 0.8));
+            transition: all 0.5s ease;
+            user-select: none;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.15); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .main-heart:active {
+            transform: scale(0.9);
+        }
+
+        /* The Messages */
+        .message-container {
+            height: 100px;
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .message {
+            opacity: 0;
+            position: absolute;
+            transition: all 1s ease;
+            font-style: italic;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            color: #ffd1dc; /* Soft rose pink */
+            text-shadow: 0 0 10px rgba(255, 209, 220, 0.5);
+        }
+
+        .message.visible {
+            opacity: 1;
+            transform: translateY(-10px);
+        }
+
+        .instruction {
+            position: absolute;
+            bottom: 30px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: rgba(255, 255, 255, 0.3);
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="canvas"></canvas>
+
+    <div class="content">
+        <div class="main-heart" onclick="showNextMessage()">❤️</div>
+        
+        <div class="message-container">
+            <div class="message" id="m1">I love you.</div>
+            <div class="message" id="m2">You have shown me what true love felt.</div>
+            <div class="message" id="m3">You changed my life and gave me purpose when I had none.</div>
+            <div class="message" id="m4">You stayed with me through distance, flaws, and at my worst moments.</div>
+            <div class="message" id="m5">Ill always love you. Forever you.</div>
+        </div>
+    </div>
+
+    <div class="instruction">Tap the heart baby</div>
+
+    <script>
+        // Particle Background
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function initCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                if (this.y < 0) this.y = canvas.height;
+                if (this.x < 0) this.x = canvas.width;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(255, 209, 220, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 80; i++) { particles.push(new Particle()); }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+
+        initCanvas();
+        animate();
+        window.addEventListener('resize', initCanvas);
+
+        // Message Logic
+        let current = 0;
+        const messages = [document.getElementById('m1'), document.getElementById('m2'), document.getElementById('m3'), document.getElementById('m4'), document.getElementById('m5')];
+
+        function showNextMessage() {
+            // Hide previous
+            messages.forEach(m => m.classList.remove('visible'));
+            
+            // Show current
+            messages[current].classList.add('visible');
+            
+            // Cycle
+            current = (current + 1) % messages.length;
+
+            // Optional: Vibrate on mobile
+            if (navigator.vibrate) navigator.vibrate(50);
+        }
+    </script>
+</body>
+</html>
